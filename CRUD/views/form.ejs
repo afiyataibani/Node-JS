@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Add Students Data</h1>
+    <form action="/insertData" method="post">
+        <table border="1" align="center">
+            <tr>
+                <td>ID</td>
+                <td><input type="text" name="id" id=""></td>
+            </tr>
+            <tr>
+                <td>UserName</td>
+                <td><input type="text" name="username" id=""></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="email" id=""></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password" id=""></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Add Data"></td>
+            </tr>
+        </table>
+    </form>
+    <h1>Students Data</h1>
+    <table border="1" align="center">
+        <tr>
+            <td>ID</td>
+            <td>User Name</td>
+            <td>Email</td>
+            <td>Password</td>
+        </tr>
+
+        <% students.map((val,i)=>{ %>
+            <tr>
+                <td>
+                    <%= val.id %>
+                </td>
+                <td>
+                    <%= val.username %>
+                </td>
+                <td>
+                    <%= val.email %>
+                </td>
+                <td>
+                    <%= val.password %>
+                </td>
+            </tr>
+            <% }) %>
+
+    </table>
+</body>
+
+</html>
