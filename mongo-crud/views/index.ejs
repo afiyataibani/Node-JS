@@ -7,42 +7,64 @@
 </head>
 <body>
     <form action="/insertData" method="post">
-        <table border = "" align="center">
+        <table border = "" align="center" cellpadding="15px" cellspacing="5px">
             <caption>
                 <h2>
                     Add User Data
                 </h2>
             </caption>
             <tr>
-                <td>
+                <th>
                     User Name
-                </td>
+                </th>
                 <td>
                     <input type="text" name="username" id="">
+                    <input type="hidden" name="id" value="<%= Date.now() %>">
                 </td>
             </tr>
             <tr>
-                <td>
+                <th>
                     Email
-                </td>
+                </th>
                 <td>
                     <input type="text" name="email" id="">
                 </td>
             </tr>
             <tr>
-                <td>
+                <th>
                     Password
-                </td>
+                </th>
                 <td>
                     <input type="password" name="password" id="">
                 </td>
             </tr>
             <tr>
-                <td>
+                <th>
                     Phone Number
-                </td>
+                </th>
                 <td>
                     <input type="number" name="phone" id="">
+                </td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>
+                    <input type="radio" name="gender" value="male" id="">Male
+                    <input type="radio" name="gender" value="female" id="">Female
+                </td>
+            </tr>
+            <tr>
+                <th>Hobby</th>
+                <td>
+                    <input type="checkbox" name="hobby" value="music" id="">Music
+                    <input type="checkbox" name="hobby" value="reading" id="">Reading
+                    <input type="checkbox" name="hobby" value="writing" id="">Writing
+                </td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>
+                    <textarea name="address" id=""></textarea>
                 </td>
             </tr>
             <tr>
@@ -54,25 +76,37 @@
         </table>
     </form>
 
-    <table border="" align="center">
+    <table border="" align="center" cellpadding="15px" cellspacing="5px">
         <caption>
             <h2>
                 User Data
             </h2>
         </caption>
             <tr>
-                <td>
+                <th>
                     User Name
-                </td>
-                <td>
+                </th>
+                <th>
                     Email Address
-                </td>
-                <td>
+                </th>
+                <th>
                     Password
-                </td>
-                <td>
+                </th>
+                <th>
                     Phone Number
-                </td>
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Hobby
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Action
+                </th>
             </tr>
             <% data.map((val,idx) => { %>
                 <tr>
@@ -80,6 +114,13 @@
                     <td><%= val.email %></td>
                     <td><%= val.password %></td>
                     <td><%= val.phone %></td>
+                    <td><%= val.gender %></td>
+                    <td><%= val.hobby %></td>
+                    <td><%= val.address %></td>
+                    <td>
+                        <a href="/deleteData/<%= val.id %>">Delete</a>
+                        <a href="/editData/<%= val.id %>">Edit</a>
+                    </td>
                 </tr>
             <% }) %>
     </table>

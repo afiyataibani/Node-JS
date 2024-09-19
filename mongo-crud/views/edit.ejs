@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/insertData" method="post">
+        <table border = "" align="center" cellpadding="15px" cellspacing="5px">
+            <caption>
+                <h2>
+                    Edit User Data
+                </h2>
+            </caption>
+            <tr>
+                <th>
+                    User Name
+                </th>
+                <td>
+                    <input type="text" name="username" id="" value="<%= data.username %>">
+                    <input type="hidden" name="editId" value="<%= data.id %>">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Email
+                </th>
+                <td>
+                    <input type="text" name="email" id="" value="<%= data.email %>">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Password
+                </th>
+                <td>
+                    <input type="password" name="password" id="" value="<%= data.password %>">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Phone Number
+                </th>
+                <td>
+                    <input type="number" name="phone" id="" value="<%= data.phone %>">
+                </td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>
+                    <input type="radio" name="gender" value="male" <% if(data.gender == 'male'){ %> checked <% } %> id="">Male
+                    <input type="radio" name="gender" value="female" <% if(data.gender == 'female'){ %> checked <% } %> id="">Female
+                </td>
+            </tr>
+            <tr>
+                <th>Hobby</th>
+                <td>
+                    <input type="checkbox" name="hobby" value="music" <% if(data.hobby.includes('music')){ %> checked <% } %> id="">Music
+                    <input type="checkbox" name="hobby" value="reading"  <% if(data.hobby.includes('reading')){ %> checked <% } %> id="">Reading
+                    <input type="checkbox" name="hobby" value="writing"  <% if(data.hobby.includes('writing')){ %> checked <% } %> id="">Writing
+                </td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>
+                    <textarea name="address" id=""> <%= data.address %> </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Edit Data">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>
