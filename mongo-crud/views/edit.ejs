@@ -47,6 +47,24 @@
                 </td>
             </tr>
             <tr>
+                <th>
+                    City
+                </th>
+                <td>
+                    <select name="city" id="" value="city">
+                        <% let city = ['Surat', 'Mumbai', 'Bangalore', 'Delhi', 'Pune']
+                            city.map((val, idx)=>{
+                                %>
+                            <option value="<%= val %>"
+                                <% if(data.city == val){ %> selected
+                                <% } %> >
+                                <%= val %>
+                            </option>
+                        <% }) %> 
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <th>Gender</th>
                 <td>
                     <input type="radio" name="gender" value="male" <% if(data.gender == 'male'){ %> checked <% } %> id="">Male

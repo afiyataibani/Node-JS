@@ -47,6 +47,23 @@
                 </td>
             </tr>
             <tr>
+                <th>
+                    City
+                </th>
+                <td>
+                    <select name="city" id="" value="city">
+                        <option disabled selected>-- Select City--</option>
+                        <% let city = ['Surat', 'Mumbai', 'Bangalore', 'Delhi', 'Pune']
+                            city.map((val, idx)=>{
+                                %>
+                            <option value="<%= val %>">
+                                <%= val %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <th>Gender</th>
                 <td>
                     <input type="radio" name="gender" value="male" id="">Male
@@ -96,6 +113,9 @@
                     Phone Number
                 </th>
                 <th>
+                    City
+                </th>
+                <th>
                     Gender
                 </th>
                 <th>
@@ -114,6 +134,7 @@
                     <td><%= val.email %></td>
                     <td><%= val.password %></td>
                     <td><%= val.phone %></td>
+                    <td><%= val.city %></td>
                     <td><%= val.gender %></td>
                     <td><%= val.hobby %></td>
                     <td><%= val.address %></td>
