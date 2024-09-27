@@ -2,6 +2,9 @@ const express = require("express");
 const db = require("./config/database");
 const bodyParser = require("body-parser");
 const userModel = require("./models/userSchema");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
 const port = 8081;
 
@@ -10,6 +13,24 @@ const app = express();
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
+console.log(__dirname);
+
+// Image Upload Start
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+let uploadImage = multer({ storage: storage }).single("image");
+
+// Image Upload End
 
 app.get("/", (req, res) => {
   userModel
@@ -26,29 +47,46 @@ app.get("/", (req, res) => {
     });
 });
 
-app.post("/insertData", (req, res) => {
+app.post("/insertData", uploadImage, (req, res) => {
   let editId = req.body.editId;
+  let image;
+  if (req.file) {
+    image = req.file.path;
+  }
 
   if (editId) {
     userModel
-      .findByIdAndUpdate(editId, { ...req.body })
+      .findById(editId)
       .then((data) => {
-        console.log("Data Updated Successfully");
-        return res.redirect("/");
+        if (req.file) {
+          console.log(data.image);
+          fs.unlinkSync(data.image);
+        } else {
+          image = data.image;
+        }
+        userModel
+          .findByIdAndUpdate(editId, { ...req.body, image: image })
+          .then((data) => {
+            return res.redirect("/");
+          })
+          .catch((err) => {
+            console.log(err);
+            return res.redirect("/");
+          });
       })
-      .catch((err) => {
-        console.log(err);
-        return false;
+      .catch((error) => {
+        console.log(error);
+        return res.redirect("/");
       });
   } else {
     userModel
-      .create({ ...req.body })
+      .create({ ...req.body, image: image })
       .then((data) => {
         return res.redirect("/");
       })
       .catch((err) => {
         console.log(err);
-        return false;
+        return res.redirect("/");
       });
   }
 });
@@ -59,6 +97,7 @@ app.get("/deleteData/:id", (req, res) => {
     .findByIdAndDelete(id)
     .then((data) => {
       console.log("Data Deleted Successfully");
+      fs.unlinkSync(data.image);
       return res.redirect("/");
     })
     .catch((err) => {

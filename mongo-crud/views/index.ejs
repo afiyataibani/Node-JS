@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/insertData" method="post">
+    <form action="/insertData" method="post" enctype="multipart/form-data">
         <table border = "" align="center" cellpadding="15px" cellspacing="5px">
             <caption>
                 <h2>
@@ -44,6 +44,14 @@
                 </th>
                 <td>
                     <input type="number" name="phone" id="">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    File
+                </th>
+                <td>
+                    <input type="file" name="image" id="">
                 </td>
             </tr>
             <tr>
@@ -113,6 +121,9 @@
                     Phone Number
                 </th>
                 <th>
+                    Image
+                </th>
+                <th>
                     City
                 </th>
                 <th>
@@ -134,6 +145,9 @@
                     <td><%= val.email %></td>
                     <td><%= val.password %></td>
                     <td><%= val.phone %></td>
+                    <td>
+                        <img src="<%= val.image %>" alt="image" width="100px" height="100px">
+                    </td>
                     <td><%= val.city %></td>
                     <td><%= val.gender %></td>
                     <td><%= val.hobby %></td>
