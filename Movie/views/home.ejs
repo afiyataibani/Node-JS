@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Video</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../assets/images/prime.png">
+    <!-- font awesome cdn  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- BootStrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark text-light">
+    <header class="bg-black py-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black w-75 m-auto">
+            <div class="container">
+                <a class="navbar-brand" href="#"><img src="../assets/images/logo.png" class="rounded" height="35px"
+                        alt="" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Prime</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">TV Shoes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">My List</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2 bg-dark text-light border-0" type="search" placeholder="Search"
+                            aria-label="Search" />
+                    </form>
+                    <button class="btn btn-blue text text-light ms-3" data-bs-toggle="modal"
+                        data-bs-target="#movieFormModal">
+                        Add Movie
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main-Banner -->
+    <section class="carousel slide intro-section container" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="../assets/images/bg4.jpeg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/bg7.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/bg3.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/bg1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/bg5.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/bg6.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/bg2.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/bg8.png" class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards -->
+    <section class="data-cards">
+        <div class="container mt-1">
+            <h2 class="mb-3 text-light">Movies</h2>
+            <div class="card-wrapper">
+                <% data.map((movie)=> { %>
+                    <div class="card">
+                        <div class="card-front">
+                            <img src="<%= movie.image %>" height="100%" width="100%" alt="image" />
+                        </div>
+                        <div class="card-back">
+                            <h3>
+                                <%= movie.title %>
+                            </h3>
+                            <p>Rating: <%= movie.rating %>
+                            </p>
+                            <p>Date: <%= new Date(movie.date).toLocaleDateString('en-GB') %>
+                            </p>
+                            <p>Description: <%= movie.description %>
+                            </p>
+                            <div class="controls ">
+                                <a href="/deleteData/<%= movie._id %>" class="mx-3 delete"><i
+                                        class="fa-solid fa-trash"></i></a>
+                                <a href="/editData/<%= movie._id %>" class="edit"><i
+                                        class="fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="movieFormModal" tabindex="-1" aria-labelledby="movieFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="movieFormModalLabel">
+                        Add a New Movie
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="movieForm" action="/insertData" method="post" enctype="application/x-www-form-urlencoded">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title:</label>
+                            <input type="text" id="title" name="title"
+                                class="form-control bg-dark text-light border-blue" placeholder="Enter Movie Name Here"
+                                required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="rating">Choose rating:</label>
+                            <select class="form-select bg-dark border-blue" aria-label="Default select example"
+                                name="rating" id="rating">
+                                <option selected class="text-secondary">Rate</option>
+                                <option value="⭐">⭐</option>
+                                <option value="⭐⭐">⭐⭐</option>
+                                <option value="⭐⭐⭐">⭐⭐⭐</option>
+                                <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+                                <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Release Date:</label>
+                            <input type="date" id="date" name="date" class="form-control bg-dark text-light border-blue"
+                                required />
+                        </div>
+                </div>
+                <div class="mb-3 ms-3 me-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <textarea id="description" name="description" class="form-control bg-dark text-light border-blue"
+                        placeholder="Enter Description" required></textarea>
+                </div>
+                <div class="mb-3 ms-3 me-3">
+                    <label for="image" class="form-label">Image URL:</label>
+                    <input type="text" id="image" name="image" class="form-control bg-dark text-light border-blue"
+                        placeholder="Enter Image Url" required />
+                </div>
+                <button type="submit" class="btn btn-blue w-100">
+                    Add Movie
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- BootStrap CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
